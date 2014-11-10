@@ -8,6 +8,8 @@ import com.iflytek.speech.RecognizerResult;
 import com.iflytek.speech.SpeechConstant;
 import com.iflytek.speech.SpeechRecognizer;
 import com.test.api.JsonParser;
+import com.test.util.ShowGrade;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.SharedPreferences;
@@ -165,14 +167,15 @@ public class WordFragment extends Fragment implements OnClickListener{
 						Log.d(TAG, "recognizer result：" + result.getResultString());
 						iattext = JsonParser.parseIatResult(result.getResultString());
 						System.out.println("识别结果"+iattext+"---");
-						
-						if (iattext.equals(text)) {
-							mButtonRecord.setText(iattext);
-			        		showTip("Right!");
-						}else {
-							mButtonRecord.setText("Try again!");
-							showTip("What you say sounds like \""+iattext+"\",Please try again!");
-						}
+						mButtonRecord.setText(iattext);
+						showTip(String.valueOf(ShowGrade.grade(iattext, text))); 
+//						if (iattext.equals(text)) {
+//							mButtonRecord.setText(iattext);
+//			        		showTip("Right!");
+//						}else {
+//							mButtonRecord.setText("Try again!");
+//							showTip("What you say sounds like \""+iattext+"\",Please try again!");
+//						}
 						clicked = false;
 		            } else {
 		            	clicked=false;
